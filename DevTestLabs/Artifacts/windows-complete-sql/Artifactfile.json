@@ -3,7 +3,7 @@
     "title": "Complete a Prepared Instance of SQL Server",
     "description": "Complete image of a prepared stand-alone instance",
     "publisher": "Efima Oy",
-    "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/Artifacts/windows-complete-sql/CompleteSQL.ico",
+    "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-complete-sql/CompleteSQL.ico",
     "targetOsType": "Windows",
     "parameters": {
         "SetupPath": {
