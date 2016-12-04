@@ -1,0 +1,18 @@
+﻿{
+    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2015-01-01/dtlArtifacts.json",
+    "title": "Complete a Prepared Instance of SQL Server",
+    "description": "Complete image of a prepared stand-alone instance",
+    "publisher": "Efima Oy",
+    "iconUri": "https://efima.visualstudio.com/996b67c6-b36d-4cf6-b7a3-a127e0224dbd/_api/_versioncontrol/itemContent?repositoryId=8e4e7cf0-c252-4d11-a064-32430eb639ad&path=%2FArtifacts%2Fwindows-complete-sql%2FCompleteSQL.ico&version=GBmaster&contentOnly=true&__v=5",
+    "targetOsType": "Windows",
+    "parameters": {
+        "SetupPath": {
+            "type": "string",
+            "displayName": "Setup Path",
+            "description": "Path to an installation media with setup.exe"
+        }
+    },
+    "runCommand": {
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File CompleteSQL.ps1', ' -SetupPath ', parameters('SetupPath'))]"
+    }
+}
