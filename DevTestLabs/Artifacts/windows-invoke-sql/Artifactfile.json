@@ -9,7 +9,7 @@
         "ScriptFilePath": {
             "type": "string",
             "displayName": "Script Path",
-            "description": "Path to script file (e.g. c:\vsts\drops\build\restore.sql)"
+            "description": "Path to script file (e.g. restore.sql)"
         }
     },
     "runCommand": {
