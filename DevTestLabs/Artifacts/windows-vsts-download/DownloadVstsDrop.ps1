@@ -7,10 +7,7 @@ param(
     [string] $buildDefinitionName,
 
     [Parameter (Mandatory=$True)]
-    [string] $vstsProjectUri,
-
-    [Parameter (Mandatory=$True)]
-    [string] $pathToScript
+    [string] $vstsProjectUri
 )
 
 Set-PSDebug -Strict
@@ -125,17 +122,4 @@ function DownloadBuildArtifacts
     }
 }
 
-function RunScript
-{
-    $scriptPath = Join-Path -Path $destination -ChildPath $pathToScript 
-
-    Write-Output $scriptPath
-
-    if (Test-Path $scriptPath -PathType Leaf)
-    {
-        & $scriptPath 
-    }
-}
-
 DownloadBuildArtifacts
-RunScript
