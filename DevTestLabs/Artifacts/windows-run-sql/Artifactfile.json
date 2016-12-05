@@ -3,7 +3,7 @@
     "title": "Run SQL script",
     "description": "Use this to run SQL script using PowerShell",
     "publisher": "Efima Oy",
-    "iconUri": "http://www.visualstudio.com/favicon.ico",
+    "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-run-sql/RunSQL.ico",
     "targetOsType": "Windows",
     "parameters": {
          "scriptFileUri": {
