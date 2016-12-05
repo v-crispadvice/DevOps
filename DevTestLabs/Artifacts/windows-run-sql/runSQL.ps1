@@ -2,7 +2,7 @@
     [Parameter(Mandatory=$True)]
     [ValidateNotNullOrEmpty()]
     [string]
-    $scriptFileURI
+    $scriptFile
 )
 
-Invoke-sqlcmd -querytimeout ([int]::MaxValue) -ServerInstance "localhost" -Database "master" -InputFile $scriptFileURI
+Invoke-sqlcmd -querytimeout ([int]::MaxValue) -ServerInstance "localhost" -Database "master" -InputFile $scriptFile

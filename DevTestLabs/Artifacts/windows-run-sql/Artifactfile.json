@@ -6,12 +6,13 @@
     "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-run-sql/RunSQL.ico",
     "targetOsType": "Windows",
     "parameters": {
-         "scriptFileUri": {
+        "scriptFileUri": {
             "type": "string",
             "displayName": "File URI",
             "description": "Script file to run (e.g. c:\vsts\drop\backup\restore.sql)"
-        }   },
+        }
+    },
     "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File runSQL.ps1', ' -scriptFileURI ', parameters('scriptFileUri'))]"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File runSQL.ps1', ' -scriptFile ', parameters('scriptFileUri'))]"
     }
 }
