@@ -1,15 +1,15 @@
 ﻿{
     "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2015-01-01/dtlArtifacts.json",
-    "title": "Complete a Prepared Instance of SQL Server",
-    "description": "Complete image of a prepared stand-alone instance",
+    "title": "Run SQL Script",
+    "description": "Run SQL script from local file",
     "publisher": "Efima Oy",
-    "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-complete-sql/CompleteSQL.ico",
+    "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-run-sql/RunSQL.ico",
     "targetOsType": "Windows",
     "parameters": {
-        "SetupPath": {
+        "ScriptFilePath": {
             "type": "string",
-            "displayName": "Setup Path",
-            "description": "Path to an installation media with setup.exe"
+            "displayName": "Script Path",
+            "description": "Path to script file (e.g. c:\vsts\drops\build\restore.sql)"
         }
     },
     "runCommand": {
