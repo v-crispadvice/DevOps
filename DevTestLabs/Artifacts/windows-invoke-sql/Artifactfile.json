@@ -1,18 +1,18 @@
 ﻿{
     "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2015-01-01/dtlArtifacts.json",
-    "title": "Run SQL Script",
-    "description": "Run SQL script from local file",
+    "title": "Invoke SQL",
+    "description": "Invoke SQL commands from file",
     "publisher": "Efima Oy",
-    "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-run-sql/RunSQL.ico",
+    "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-invoke-sql/InvokeSQL.ico",
     "targetOsType": "Windows",
     "parameters": {
-        "ScriptFilePath": {
+        "SQLFilePath": {
             "type": "string",
-            "displayName": "Script Path",
-            "description": "Path to script file (e.g. restore.sql)"
+            "displayName": "Path to file",
+            "description": "Path to file with SQL commands (e.g. restore.sql)"
         }
     },
     "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File InvokeSQL.ps1', ' -ScriptFile ', parameters('ScriptFilePath'))]"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File InvokeSQL.ps1', ' -SQLFile ', parameters('SQLFilePath'))]"
     }
 }
