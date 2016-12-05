@@ -13,6 +13,6 @@
         }
     },
     "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File CompleteSQL.ps1', ' -SetupPath ', parameters('SetupPath'))]"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File InvokeSQL.ps1', ' -ScriptFile ', parameters('ScriptFilePath'))]"
     }
 }
