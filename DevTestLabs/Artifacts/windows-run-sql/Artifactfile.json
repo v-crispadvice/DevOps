@@ -1,18 +1,18 @@
-{
+﻿{
     "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2015-01-01/dtlArtifacts.json",
-    "title": "Run SQL script",
-    "description": "Use this to run SQL script using PowerShell",
+    "title": "Complete a Prepared Instance of SQL Server",
+    "description": "Complete image of a prepared stand-alone instance",
     "publisher": "Efima Oy",
-    "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-run-sql/RunSQL.ico",
+    "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-complete-sql/CompleteSQL.ico",
     "targetOsType": "Windows",
     "parameters": {
-        "scriptFileUri": {
+        "SetupPath": {
             "type": "string",
-            "displayName": "File URI",
-            "description": "Script file to run (e.g. c:\vsts\drop\backup\restore.sql)"
+            "displayName": "Setup Path",
+            "description": "Path to an installation media with setup.exe"
         }
     },
     "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File runSQL.ps1', ' -scriptFile ', parameters('scriptFileUri'))]"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File CompleteSQL.ps1', ' -SetupPath ', parameters('SetupPath'))]"
     }
 }
