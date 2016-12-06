@@ -1,0 +1,18 @@
+﻿{
+    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2015-01-01/dtlArtifacts.json",
+    "title": "Install Dynamics AX",
+    "description": "Install Dynamics AX development instance",
+    "publisher": "Efima Oy",
+    "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-complete-sql/CompleteSQL.ico",
+    "targetOsType": "Windows",
+    "parameters": {
+        "SetupPath": {
+            "type": "string",
+            "displayName": "Setup Path",
+            "description": "Path to an installation media with setup.exe"
+        }
+    },
+    "runCommand": {
+        "commandToExecute": "[concat(parameters('SetupPath'), '\setup.exe -ParmFile=parm.txt')]"
+    }
+}
