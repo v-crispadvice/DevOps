@@ -3,7 +3,7 @@
     "title": "Install Dynamics AX",
     "description": "Install Dynamics AX development instance",
     "publisher": "Efima Oy",
-    "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-complete-sql/CompleteSQL.ico",
+    "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-install-ax/InstallAX.ico",
     "targetOsType": "Windows",
     "parameters": {
         "SetupPath": {
