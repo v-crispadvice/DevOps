@@ -1,23 +1,16 @@
-#Basic Setup Settings
-AcceptLicenseTerms=1
-OptInCEIP=0
-UseMicrosoftUpdate=0
 HideUI=1
+AcceptLicenseTerms=1
 ConfigurePrerequisites=1
 
-#Install Selection
 InstallClientUI=1
 ClientInstallType=1
-InstallDebugger=1
+ClientAosServer=localhost
 CreateClientDesktopShortcut=1
 InstallVisualStudioTools=1
+InstallDebugger=1
 
-#AOS Config
-ClientAosServer=localhost
 InstallAos=1
 AosInstanceName=DynamicsAx 
-AosPort=2712
-AosWsdlPort=8101
 DbSqlServer=localhost
 DbSqlDatabaseName=DynamicsAx
 

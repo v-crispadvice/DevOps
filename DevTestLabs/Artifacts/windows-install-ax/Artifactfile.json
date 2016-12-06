@@ -13,6 +13,6 @@
         }
     },
     "runCommand": {
-        "commandToExecute": "[concat(parameters('SetupPath'), 'setup.exe -ParmFile=parm.txt')]"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File InstallAX.ps1', ' -SetupPath ', parameters('SetupPath'))]"
     }
 }
