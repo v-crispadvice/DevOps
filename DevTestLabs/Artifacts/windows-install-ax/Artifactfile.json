@@ -13,6 +13,6 @@
         }
     },
     "runCommand": {
-        "commandToExecute": "[concat(parameters('SetupPath'), '\setup.exe -ParmFile=parm.txt')]"
+        "commandToExecute": "[concat(parameters('SetupPath'), 'setup.exe -ParmFile=parm.txt')]"
     }
 }
