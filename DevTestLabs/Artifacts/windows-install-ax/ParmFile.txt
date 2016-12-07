@@ -16,5 +16,4 @@ DbSqlServer=localhost
 DbSqlDatabaseName=MicrosoftDynamicsAx
 AosPort=2712
 AosWsdlPort=8101
-AosAccount=NT AUTHORITY\NETWORK SERVICE
 
