@@ -2,7 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2015-01-01/dtlArtifacts.json",
     "title": "Complete a Prepared Instance of SQL Server",
     "description": "Complete image of a prepared stand-alone instance",
-    "publisher": "Efima Oy",
+    "publisher": "CA",
     "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-complete-sql/CompleteSQL.ico",
     "targetOsType": "Windows",
     "parameters": {

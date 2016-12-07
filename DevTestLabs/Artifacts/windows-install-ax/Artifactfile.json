@@ -2,7 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2015-01-01/dtlArtifacts.json",
     "title": "Install Dynamics AX",
     "description": "Install Dynamics AX development instance",
-    "publisher": "Efima Oy",
+    "publisher": "CA",
     "iconUri": "https://raw.githubusercontent.com/v-crispadvice/DevOps/master/DevTestLabs/Artifacts/windows-install-ax/InstallAX.ico",
     "targetOsType": "Windows",
     "parameters": {
