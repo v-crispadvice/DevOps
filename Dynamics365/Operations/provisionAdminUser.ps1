@@ -10,4 +10,4 @@ $objUser = New-Object System.Security.Principal.NTAccount($strUser)
 $strSID = $objUser.Translate([System.Security.Principal.SecurityIdentifier])
 $strSQL = "UPDATE .dbo.[USERINFO] SET [SID]='{0}' WHERE [ID]='Admin'" -f $strSID
 
-Invoke-sqlcmd -querytimeout ([int]::MaxValue) -ServerInstance "localhost" -Database "DynamicsAX" -Query $strSQL
+Invoke-sqlcmd -querytimeout ([int]::MaxValue) -ServerInstance "localhost" -Database "MicrosoftDynamicsAX" -Query $strSQL

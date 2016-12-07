@@ -11,9 +11,9 @@ InstallDebugger=1
 
 InstallAos=1
 AosStart=0
-AosInstanceName=DynamicsAx 
+AosInstanceName=MicrosoftDynamicsAx 
 DbSqlServer=localhost
-DbSqlDatabaseName=DynamicsAx
+DbSqlDatabaseName=MicrosoftDynamicsAx
 AosPort=2712
 AosWsdlPort=8101
 
