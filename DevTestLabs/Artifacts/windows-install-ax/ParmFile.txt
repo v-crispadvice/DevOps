@@ -6,11 +6,14 @@ InstallClientUI=1
 ClientInstallType=1
 ClientAosServer=localhost
 CreateClientDesktopShortcut=1
-InstallVisualStudioTools=1
+InstallVisualStudioTools2013=1
 InstallDebugger=1
 
 InstallAos=1
+AosStart=0
 AosInstanceName=DynamicsAx 
 DbSqlServer=localhost
 DbSqlDatabaseName=DynamicsAx
+AosPort=2712
+AosWsdlPort=8101
 
