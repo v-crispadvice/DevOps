@@ -7,17 +7,50 @@ param(
     [string] $buildDefinitionName,
 
     [Parameter (Mandatory=$True)]
-    [string] $vstsProjectUri
+    [string] $vstsAccount,
+
+    [Parameter (Mandatory=$True)]
+    [string] $vstsProject,
+
+    [Parameter (Mandatory=$True)]
+    [string] $vstsBuildArtifact1,
+
+    [Parameter (Mandatory=$True)]
+    [string] $vstsBuildArtifact2
 )
 
 Set-PSDebug -Strict
 
-# VSTS Variables
+#init variables
+
 $vstsApiVersion = "2.0"
 
-# Script Variables
-$outfile = $PSScriptRoot + "\" + $buildDefinitionName + ".zip";
 $destination = $env:HOMEDRIVE + "\VSTS";
+
+if (($vstsBuildArtifact1) -and ($vstsBuildArtifact2))
+{
+    # database with demo data
+    $databaseName = Split-Path -Path $vstsBuildArtifact1 -Leaf
+
+    $outfileDatabase = $PSScriptRoot + "\" + $databaseName;
+
+    if ($vstsBuildArtifact1.Contains("/")) {
+        $vstsBuildArtifact1 = $vstsBuildArtifact1.Replace("/", "%2F")
+    }
+
+    # modelstore
+    $modelstoreName  = Split-Path -Path $vstsBuildArtifact2 -Leaf
+    $outfileModelstore = $PSScriptRoot + "\" + $modelstoreName;
+    
+    if ($vstsBuildArtifact2.Contains("/")) {
+        $vstsBuildArtifact2 = $vstsBuildArtifact2.Replace("/", "%2F")
+    }
+}
+else
+{
+    $outfile = $PSScriptRoot + "\" + $buildDefinitionName + ".zip";
+}
+
 
 function SetAuthHeaders
 {
@@ -26,7 +59,8 @@ function SetAuthHeaders
 
 function GetBuildDefinitionId
 {
-    $buildDefinitionUri = ("{0}/_apis/build/definitions?api-version={1}&name={2}" -f $vstsProjectUri, $vstsApiVersion, $buildDefinitionName)
+    $buildDefinitionUri = ("{0}/{1}/_apis/build/definitions?api-version={2}&name={3}" -f $vstsAccount, $vstsProject, $vstsApiVersion, $buildDefinitionName)
+
     try
     {
         Write-Host "GetBuildDefinitionId from $buildDefinitionUri"
@@ -50,7 +84,7 @@ function GetLatestBuild
         [Parameter(Mandatory=$True)]
         [int] $buildDefinitionId 
     )
-    $buildUri = ("{0}/_apis/build/builds?api-version={1}&definitions={2}&resultFilter=succeeded" -f $vstsProjectUri, $vstsApiVersion, $buildDefinitionId);
+    $buildUri = ("{0}/{1}/_apis/build/builds?api-version={2}&definitions={3}&resultFilter=succeeded" -f $vstsAccount, $vstsProject, $vstsApiVersion, $buildDefinitionId);
 
     try 
     {
@@ -70,15 +104,35 @@ function GetLatestBuild
    
 }
 
+function DownloadBuildArtifactFromContainer
+{
+    param (
+        [Parameter(Mandatory=$True)]
+        [PSObject] $containerId,
+
+        [Parameter(Mandatory=$True)]
+        [string] $artifactPath,
+
+        [Parameter(Mandatory=$True)]
+        [string] $artifactOutput
+    )
+
+    $containerUri = ("{0}/_apis/resources/Containers/{1}?itemPath={2}" -f $vstsAccount, $containerId, $artifactPath);
+            
+    Write-Host "Download from $containerUri"
+    Invoke-RestMethod -Uri $containerUri -Headers $headers -Method Get -Outfile $artifactOutput -ErrorAction Stop
+
+    #assume that all artifacts are zipped
+    [System.IO.Compression.ZipFile]::ExtractToDirectory($artifactOutput, $destination)
+
+    Remove-Item $artifactOutput
+}
+
 function DownloadBuildArtifacts
 {
-	if ($vstsProjectUri.EndsWith("/")) {
-        $vstsProjectUri = $vstsProjectUri.Substring(0, $vstsProjectUri.Length -1)
-    }
-
     $headers = SetAuthHeaders
     $buildId = GetLatestBuild ( GetBuildDefinitionId )
-    $artifactsUri = ("{0}/_apis/build/builds/{1}/Artifacts?api-version={2}" -f $vstsProjectUri, $buildId, $vstsApiVersion);
+    $artifactsUri = ("{0}/{1}/_apis/build/builds/{2}/Artifacts?api-version={3}" -f $vstsAccount, $vstsProject, $buildId, $vstsApiVersion);
 
     try 
     {
@@ -89,26 +143,37 @@ function DownloadBuildArtifacts
 
         Write-Host "Get artifacts from $artifactsUri"
         $artifacts = Invoke-RestMethod -Uri $artifactsUri -Headers $headers -Method Get  -ErrorAction Stop | ConvertTo-Json -Depth 3 | ConvertFrom-Json
-        $DownloadUri = $artifacts.value.resource.downloadUrl
+        $downloadUri = $artifacts.value.resource.downloadUrl
+        $containerId = $artifacts.value.resource.data -replace "#/","" -replace "/drops", ""
 
-        if ($DownloadUri -is [system.array])
+        [System.Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem") | Out-Null 
+
+        if ($downloadUri -is [system.array])
         {
-            foreach ($artifactUri in $DownloadUri) 
+            foreach ($artifactUri in $downloadUri) #download logs and drops (not yet tested)
             {
                 Write-Host "Download from $artifactUri"
                 Invoke-RestMethod -Uri $artifactUri -Headers $headers -Method Get -Outfile $outfile -ErrorAction Stop
 
-                [System.Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem") | Out-Null 
                 [System.IO.Compression.ZipFile]::ExtractToDirectory($outfile, $destination)
             }
         }
-        else
+        else 
         {
-            Write-Host "Download from $DownloadUri"
-            Invoke-RestMethod -Uri $DownloadUri -Headers $headers -Method Get -Outfile $outfile -ErrorAction Stop
+            if (($containerId) -and ($databasePath) -and ($modelstorePath))
+            {
+                DownloadBuildArtifactFromContainer  $containerId $vstsBuildArtifact1 $outfileDatabase
+                DownloadBuildArtifactFromContainer  $containerId $vstsBuildArtifact2 $outfileModelstore
 
-            [System.Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem") | Out-Null 
-            [System.IO.Compression.ZipFile]::ExtractToDirectory($outfile, $destination)
+            }
+            else #download in one zip
+            {
+                Write-Host "Download from $downloadUri"
+                Invoke-RestMethod -Uri $downloadUri -Headers $headers -Method Get -Outfile $outfile -ErrorAction Stop
+
+                [System.IO.Compression.ZipFile]::ExtractToDirectory($outfile, $destination)
+            }
+
         }
     }
     catch
@@ -122,4 +187,4 @@ function DownloadBuildArtifacts
     }
 }
 
-DownloadBuildArtifacts
+DownloadBuildArtifacts 

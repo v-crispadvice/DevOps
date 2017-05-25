@@ -2,7 +2,7 @@ USE [master]
 GO
 
 RESTORE DATABASE [MicrosoftDynamicsAX] 
-	FROM DISK = N'C:\VSTS\drops\backup\MicrosoftDynamicsAX.bak' WITH FILE = 1,  
+	FROM DISK = N'C:\VSTS\MicrosoftDynamicsAX.bak' WITH FILE = 1,  
 	MOVE N'MicrosoftDynamicsAX' TO N'C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\DATA\MicrosoftDynamicsAX.mdf',  
 	MOVE N'MicrosoftDynamicsAX_log' TO N'C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\DATA\MicrosoftDynamicsAX_log.ldf',  
 	NOUNLOAD,  REPLACE,  STATS = 5

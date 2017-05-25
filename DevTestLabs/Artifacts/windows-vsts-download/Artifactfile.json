@@ -6,15 +6,30 @@
     "iconUri": "http://www.visualstudio.com/favicon.ico",
     "targetOsType": "Windows",
     "parameters": {
-        "vstsProjectUri": {
+        "vstsAccount": {
             "type": "string",
-            "displayName": "VSTS Project URL",
-            "description": "The URL for the VSTS project that contains the build, eg https://accountName.visualstudio.com/defaultcollection/projectName"
+            "displayName": "VSTS URL",
+            "description": "VSTS account URL, eg https://efima.visualstudio.com"
+        },
+        "vstsProject": {
+            "type": "string",
+            "displayName": "VSTS Project",
+            "description": "VSTS project name, eg Mercantile2"
         },
         "buildDefinitionName": {
             "type": "string",
             "displayName": "Build Definition Name",
             "description": "Name of the build definition to be retrieved"
+        },
+        "vstsBuildArtifact1": {
+            "type": "string",
+            "displayName": "Build Artifact for Database",
+            "description": "Build artifact path for database, eg drops/devtestlabs/database.zip"
+        },
+        "vstsBuildArtifact2": {
+            "type": "string",
+            "displayName": "Build Artifact for Modelstore",
+            "description": "Build artifact path for modelstore, eg drops/devtestlabs/modelstore.zip"
         },
         "PersonalAccessToken": {
             "type": "securestring",
@@ -22,6 +37,6 @@
             "description": "Personal Access Token for accessing VSTS build"
         }    },
     "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File DownloadVstsDrop.ps1', ' -accessToken ', parameters('PersonalAccessToken'), ' -buildDefinitionName ', parameters('buildDefinitionName'), ' -vstsProjectUri ', parameters('vstsProjectUri'))]"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File DownloadVstsDrop.ps1', ' -accessToken ', parameters('PersonalAccessToken'), ' -buildDefinitionName ', parameters('buildDefinitionName'), ' -vstsAccount ', parameters('vstsAccount'), ' -vstsProject ', parameters('vstsProject'), ' -vstsBuildArtifact1 ', parameters('vstsBuildArtifact1'), ' -vstsBuildArtifact2 ', parameters('vstsBuildArtifact2'))]"
     }
 }
