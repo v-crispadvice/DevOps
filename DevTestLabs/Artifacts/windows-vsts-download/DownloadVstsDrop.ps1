@@ -160,7 +160,7 @@ function DownloadBuildArtifacts
         }
         else 
         {
-            if (($containerId) -and ($databasePath) -and ($modelstorePath))
+            if (($containerId) -and ($vstsBuildArtifact1) -and ($vstsBuildArtifact2))
             {
                 DownloadBuildArtifactFromContainer  $containerId $vstsBuildArtifact1 $outfileDatabase
                 DownloadBuildArtifactFromContainer  $containerId $vstsBuildArtifact2 $outfileModelstore
