@@ -19,7 +19,7 @@
         "buildDefinitionName": {
             "type": "string",
             "displayName": "Build Definition Name",
-            "description": "Name of the build definition to be retrieved"
+            "description": "Name of the build definition to be retrieved, eg MRC_DTL_v1.2"
         },
         "vstsBuildArtifact1": {
             "type": "string",
